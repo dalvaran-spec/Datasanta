@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Datasanta</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page">
+    <header>
+      <h1>Datasanta</h1>
+    </header>
+
+    <main>
+      <!-- Formulario de acceso y restauración de datos base. -->
+      <div id="login" class="card">
+        <div class="login-content">
+          <h2>Accede como administrador</h2>
+          <div class="input-field">
+            <span class="input-icon" aria-hidden="true">👤</span>
+            <input id="usuarioLogin" placeholder="Usuario">
+          </div>
+          <div class="input-field">
+            <span class="input-icon" aria-hidden="true">🔒</span>
+            <input id="passwordLogin" type="password" placeholder="Contraseña">
+          </div>
+          <button type="button" onclick="login()">Ingresar</button>
+          <button type="button" class="secondary" onclick="restoreDefaultUsers()">Restaurar datos base</button>
+          <p class="subtitle">Usa un usuario del colegio o `admin` / `12345`.</p>
+          <p id="mensaje"></p>
+        </div>
+      </div>
+
+      <!-- Panel principal de administración: edición de usuarios y notas. -->
+      <div id="adminPanel" class="card" style="display:none;">
+        <div class="admin-header">
+          <div>
+            <h2>Panel de administración</h2>
+            <p class="subtitle">Revisa y edita los datos de los usuarios registrados.</p>
+          </div>
+          <button class="secondary" onclick="cerrarSesion()">Salir</button>
+        </div>
+
+        <section class="admin-grid">
+          <div class="user-list">
+            <h3>Lista de usuarios</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Email</th>
+                  <th>Rol</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="userTableBody"></tbody>
+            </table>
+          </div>
+
+          <div class="user-edit">
+            <h3>Editar usuario</h3>
+            <form onsubmit="event.preventDefault(); guardarUsuario();">
+              <label for="editName">Nombre</label>
+              <input id="editName" required>
+
+              <label for="editEmail">Email</label>
+              <input id="editEmail" type="email" required>
+
+              <label for="editRole">Rol</label>
+              <select id="editRole">
+                <option value="Usuario">Usuario</option>
+                <option value="Admin">Admin</option>
+                <option value="Invitado">Invitado</option>
+              </select>
+              <button type="button" class="secondary" onclick="guardarRol()">Guardar rol</button>
+
+              <label for="editPassword">Contraseña</label>
+              <input id="editPassword" type="password" placeholder="Dejar vacío para no cambiar">
+              <button type="button" class="secondary" onclick="guardarContrasena()">Guardar contraseña</button>
+
+              <div class="grade-admin">
+                <h4>Calificaciones por periodo</h4>
+                <label for="gradePeriodSelect">Periodo</label>
+                <select id="gradePeriodSelect" onchange="setAdminSelectedPeriod(this.value)"></select>
+
+                <label for="gradeSubjectSelect">Materia</label>
+                <select id="gradeSubjectSelect" onchange="setAdminSelectedSubject(this.value)"></select>
+
+                <label for="gradeLabelInput">Nombre de la nota</label>
+                <input id="gradeLabelInput" type="text" placeholder="Taller 1, Parcial, Final">
+
+                <label for="gradeValueInput">Calificación</label>
+                <input id="gradeValueInput" type="text" inputmode="decimal" placeholder="1-5, ej: 2,5">
+
+                <button type="button" onclick="guardarCalificacion()">Agregar calificación</button>
+
+                <div class="grade-editor-list">
+                  <h4>Notas de la materia</h4>
+                  <div id="gradeEditorList" class="grade-editor-items"></div>
+                </div>
+              </div>
+
+              <button type="submit">Guardar cambios</button>
+              <p id="editMessage"></p>
+            </form>
+          </div>
+        </section>
+      </div>
+
+      <!-- Vista del usuario autenticado: notas personales, materias y calificaciones. -->
+      <div id="userPanel" class="card" style="display:none;">
+        <div class="admin-header">
+          <div>
+            <h2>Panel de usuario</h2>
+            <p class="subtitle" id="userSubtitle">Tus notas personales</p>
+          </div>
+          <button class="secondary" onclick="logoutUser()">Salir</button>
+        </div>
+
+        <section class="user-content">
+          <h3>Notas</h3>
+          <ul id="notesList" class="notes-list"></ul>
+
+          <section class="user-subjects" style="margin-top:18px;">
+            <h3>Asignaturas del colegio</h3>
+            <ul id="subjectsList" class="subjects-list"></ul>
+          </section>
+
+          
+
+          <section class="user-grades" style="display:block; margin-top:18px;">
+            <h3>Calificaciones</h3>
+            <p class="subtitle">Vista de consulta: las calificaciones se asignan desde administración.</p>
+            <div class="period-controls">
+              <label for="periodSelect">Periodo</label>
+              <select id="periodSelect" onchange="setCurrentSelectedPeriod(this.value)"></select>
+            </div>
+
+            <ul id="gradesList" class="notes-list"></ul>
+
+            <p id="gradeAverage"></p>
+            <p id="gradeStatus"></p>
+          </section>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="javascrip.js"></script>
+</body>
+</html>

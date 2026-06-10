@@ -1,0 +1,454 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  background:
+    radial-gradient(circle at top left, rgba(208, 90, 61, 0.18), transparent 32%),
+    radial-gradient(circle at top right, rgba(19, 111, 84, 0.18), transparent 30%),
+    linear-gradient(180deg, #f7efe3 0%, #f4e6d2 45%, #e7d0b1 100%);
+  color: #2d2a26;
+}
+
+/* Estructura general de la página y encabezado. */
+.page {
+  width: min(100%, 1120px);
+  margin: 0 auto;
+  padding: 18px 20px 24px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 2.2rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8d3f2f;
+  text-shadow: 0 2px 12px rgba(141, 63, 47, 0.14);
+}
+
+main {
+  flex: 1;
+}
+
+/* Cuando no hay sesión activa, el login ocupa el centro de la pantalla. */
+body:not(.logged-in) main {
+  display: grid;
+  place-items: center;
+}
+
+body:not(.logged-in) .page {
+  justify-content: center;
+}
+
+body:not(.logged-in) header {
+  margin-bottom: 10px;
+}
+
+/* Tarjetas principales del login y del formulario de edición. */
+.card {
+  background: rgba(255, 250, 244, 0.92);
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 22px 50px rgba(85, 45, 27, 0.14);
+  margin-bottom: 24px;
+  border: 1px solid rgba(141, 63, 47, 0.12);
+  backdrop-filter: blur(10px);
+}
+
+#login,
+.user-edit {
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+#login {
+  width: min(100%, 520px);
+}
+
+.login-content {
+  width: min(100%, 380px);
+  margin: 0 auto;
+}
+
+#login h2,
+.admin-header h2,
+.user-list h3,
+.user-edit h3 {
+  margin-top: 0;
+  color: #5f2f26;
+}
+
+.subtitle {
+  margin: 6px 0 0;
+  color: #6d574a;
+}
+
+input,
+select {
+  display: block;
+  width: 100%;
+  padding: 12px 14px;
+  margin: 0;
+  border: 1px solid #d7c3b3;
+  border-radius: 12px;
+  background: #fffdf9;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+/* Campo con icono para usuario y contraseña. */
+
+input:focus,
+select:focus {
+  border-color: #8c7a3b;
+  box-shadow: 0 0 0 3px rgba(140, 122, 59, 0.16);
+}
+
+.input-field {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.input-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #2e7d59, #9b5a35);
+  color: #fff7ee;
+  box-shadow: 0 10px 18px rgba(62, 37, 24, 0.16);
+  font-size: 1.1rem;
+}
+
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 12px 18px;
+  margin-top: 16px;
+  background: linear-gradient(135deg, #8d3f2f, #b76d2f);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+button:hover {
+  background: linear-gradient(135deg, #7a3427, #9e5d25);
+}
+
+button.secondary {
+  width: auto;
+  padding: 10px 18px;
+  background: #3f6f5a;
+}
+
+button.secondary:hover {
+  background: #2e5948;
+}
+
+#mensaje,
+#editMessage {
+  font-weight: 700;
+  margin-top: 14px;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.admin-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(360px, 0.85fr);
+  gap: 18px;
+  margin-top: 18px;
+  align-items: start;
+}
+
+.user-list,
+.user-edit {
+  background: rgba(255, 252, 247, 0.88);
+  border-radius: 16px;
+  padding: 16px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: #f7dfc9;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 12px 10px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+tr:hover {
+  background: #f7ede4;
+}
+
+.user-list button {
+  width: auto;
+  padding: 8px 12px;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.grade-admin {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid #e7cdb9;
+}
+
+.grade-admin h4 {
+  margin: 0 0 10px;
+  color: #5f2f26;
+}
+
+@media (max-width: 780px) {
+  .admin-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Listado de notas y materias dentro de la vista del usuario. */
+.notes-list {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 0;
+}
+
+.notes-list li {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #ead7c5;
+  padding: 10px 12px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.subjects-list {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 0;
+  display: grid;
+  gap: 10px;
+}
+
+.subjects-list li {
+  margin-bottom: 0;
+}
+
+.subject-card {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-align: left;
+  background: linear-gradient(135deg, #f7efe3, #fff7ef);
+  border: 1px solid #e8d2bd;
+  border-radius: 12px;
+  padding: 12px 14px;
+  color: #2d2a26;
+  box-shadow: 0 8px 20px rgba(85, 45, 27, 0.06);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+}
+
+.subject-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(85, 45, 27, 0.1);
+  border-color: #cda57f;
+}
+
+.subject-card.active {
+  background: linear-gradient(135deg, #efe0c9, #f7efe3);
+  border-color: #b98a57;
+  box-shadow: 0 14px 28px rgba(141, 63, 47, 0.12);
+}
+
+.subject-icon {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: #fffaf4;
+  font-size: 1.35rem;
+  flex-shrink: 0;
+}
+
+.subject-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.subject-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.subject-name {
+  font-weight: 700;
+  color: #4a2c22;
+}
+
+.subject-meta {
+  color: #71594b;
+  font-size: 0.92rem;
+}
+
+.note-value {
+  min-width: 42px;
+  text-align: center;
+  font-weight: 700;
+  color: #8d3f2f;
+  background: #f7e4d7;
+  border-radius: 999px;
+  padding: 4px 10px;
+}
+
+.note-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.note-text {
+  color: #3f342d;
+}
+
+.note-empty {
+  color: #7c6658;
+  text-align: center;
+}
+
+.note-form {
+  margin-top: 14px;
+  display: flex;
+  gap: 8px;
+}
+
+.note-form input {
+  flex: 1;
+}
+
+.note-form button {
+  width: auto;
+  padding: 10px 14px;
+}
+
+.grades-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin: 8px 0 12px;
+}
+
+.period-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin: 12px 0 8px;
+}
+
+#gradeAverage {
+  margin-top: 12px;
+  font-weight: 700;
+}
+
+#gradeStatus {
+  margin-top: 6px;
+  font-weight: 700;
+  color: #2e7d59;
+}
+
+/* Editor de calificaciones del administrador. */
+.grade-editor-list {
+  margin-top: 16px;
+}
+
+.grade-editor-list h4 {
+  margin: 0 0 10px;
+  color: #111827;
+}
+
+.grade-editor-items {
+  display: grid;
+  gap: 10px;
+}
+
+.grade-editor-item {
+  display: grid;
+  grid-template-columns: 1.3fr 0.6fr auto auto;
+  gap: 8px;
+  align-items: center;
+  padding: 10px;
+  border-radius: 12px;
+  background: #fffaf4;
+  border: 1px solid #e8d2bd;
+}
+
+.grade-editor-item input {
+  margin: 0;
+}
+
+.grade-editor-item button {
+  margin-top: 0;
+  width: auto;
+  padding: 10px 12px;
+}
+
+@media (max-width: 780px) {
+  .grade-editor-item {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .input-field {
+    grid-template-columns: 38px 1fr;
+  }
+
+  .input-icon {
+    width: 38px;
+    height: 38px;
+  }
+
+  .card {
+    padding: 18px;
+  }
+}
